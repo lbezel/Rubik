@@ -1,0 +1,122 @@
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+import sys
+global xrot
+global yrot
+global ambient
+global greencolor
+global treecolor
+global lightpos
+def init():
+        global xrot
+        global yrot
+        global ambient
+        global greencolor
+        global treecolor
+        global lightpos
+        xrot = 0.0
+        yrot = 0.0
+        ambient = (1.0, 1.0, 1.0, 1)
+        greencolor = (0.2, 0.8, 0.0, 0.8)
+        treecolor = (0.9, 0.6, 0.3, 0.8)
+        lightpos = (1.0, 1.0, 1.0)
+        glClearColor(0.5, 0.5, 0.5, 1.0)
+        gluOrtho2D(-1.0, 1.0, -1.0, 1.0)
+        glRotatef(30, 1.0, 1.0, 0.0)
+        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient)
+        glEnable(GL_LIGHTING)
+        glEnable(GL_LIGHT0)
+        glLightfv(GL_LIGHT0, GL_POSITION, lightpos)
+
+def specialkeys(key, x, y):
+        global xrot
+        global yrot
+        if key == GLUT_KEY_LEFT:
+                yrot -=3.0
+        if key == GLUT_KEY_RIGHT:
+                yrot += 3.0
+        if key == GLUT_KEY_UP:
+                xrot -=3.0
+        if key == GLUT_KEY_DOWN:
+                xrot += 3.0
+        
+        glutPostRedisplay()
+def draw():
+        global xrot
+        global yrot
+        global lightpos
+        global greencolor
+        global treecolor
+        glClear(GL_COLOR_BUFFER_BIT)
+        glPushMatrix()
+        glRotatef(xrot, 1.0, 0.0, 0.0)
+        glRotatef(yrot, 0.0, 1.0, 0.0)  #!!!!!!!
+        #glLightfv(GL_LIGHT0, GL_POSITION, lightpos)
+
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, treecolor)
+        #glTranslatef(0.0, 0.0, -0.7)
+        #glutSolidCylinder(0.1, 0.2, 20, 20)
+        #glMaterialfv(GL_FRONT, GL_DIFFUSE, greencolor)
+        #glTranslatef(0.0, 0.0, 0.2)
+        #glutSolidCone(0.5, 0.5, 20, 20)
+        glutSolidCube(0.5)
+        #glTranslatef(0.0, 0.0, 0.3)
+        #glutSolidCone(0.4, 0.4, 20, 20)
+        #glTranslatef(0.0, 0.0, 0.3)
+        #glutSolidCone(0.3, 0.3, 20, 20)
+
+        glBegin(GL_TRIANGLE_STRIP)
+        glColor3b(100,200,20)
+        glNormal3f(1,1,1)
+        
+        glVertex3f(0.0, 0.0, 0.0);
+        glColor3b(100,2,30)
+        glNormal3f(1,1,1)
+        glVertex3f(0.0, 1.0, 0.0);
+        glColor3b(1,200,30)
+        glNormal3f(1,1,1)
+        glVertex3f(0.0, 0.0, 1.0);
+        #glColor3f(100,200,30)
+        #glVertex3f(0.0, 10.0, 10.0)
+        #glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, greencolor)
+        #glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glEnd()
+        #glutWireCube(1.0)
+        
+        glPopMatrix()
+        glutSwapBuffers()
+        
+        
+        
+glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB)
+glutInitWindowSize(300, 300)
+glutInitWindowPosition(300, 300)
+glutInit(sys.argv)
+glutCreateWindow(b"Happy New Year!")
+
+#class cubik:
+        #glutWireCube(0.5)
+
+glutDisplayFunc(draw)
+glutSpecialFunc(specialkeys)
+init()
+glutMainLoop()
+
+
+
+class Cube:
+    def __init__(self):
+        pass
+    def rotateRight(self, mode):
+        pass
+    def rotateLeft(self, mode):
+        pass
+    def rotateFront(self, mode):
+        pass
+    def rotateTop(self, mode):
+        pass
+    def rotateBottom(self, mode):
+        pass
+    def rotateBack(self, mode):
+        pass
