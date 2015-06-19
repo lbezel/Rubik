@@ -61,23 +61,24 @@ def draw():
         #glMaterialfv(GL_FRONT, GL_DIFFUSE, greencolor)
         #glTranslatef(0.0, 0.0, 0.2)
         #glutSolidCone(0.5, 0.5, 20, 20)
-        glutSolidCube(0.5)
+        #glutSolidCube(0.5)
         #glTranslatef(0.0, 0.0, 0.3)
         #glutSolidCone(0.4, 0.4, 20, 20)
         #glTranslatef(0.0, 0.0, 0.3)
         #glutSolidCone(0.3, 0.3, 20, 20)
 
-        #glBegin(GL_TRIANGLE_STRIP)
-        #glColor3b(10,400,10)
-        #glNormal3f(1,1,1) 
-        #glVertex3f(0.0, 0.0, 0.0);
-        #glColor3b(100,2,30)
-        #glNormal3f(1,1,1)
-        #glVertex3f(0.0, 1.0, 0.0);
-        #glColor3b(1,200,30)
-        #glNormal3f(1,1,1)
-        #glVertex3f(0.0, 0.0, 1.0);
-        #glEnd()
+        glBegin(GL_TRIANGLE_STRIP)
+        a = [20, 300, 5]
+        glColor3b(a[0], a[1], a[2]);
+        glNormal3f(1,1,1) 
+        glVertex3f(1.0, 0.0, 0.0);
+        glColor3b(100,2,30)
+        glNormal3f(1,1,1)
+        glVertex3f(0.0, 1.0, 0.0);
+        glColor3b(1,200,30)
+        glNormal3f(1,1,1)
+        glVertex3f(0.0, 0.0, 1.0);
+        glEnd()
         #glColor3f(100,200,30)
         #glVertex3f(0.0, 10.0, 10.0)
         #glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, greencolor)
@@ -104,7 +105,8 @@ def draw():
         
         
         
-
+def elemental():
+    pass
 
 
 class Cube:
@@ -213,7 +215,7 @@ class Cube:
         pass
 
 
-R = Cube
+R = Cube()
 
 
 
