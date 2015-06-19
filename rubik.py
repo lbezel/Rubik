@@ -17,17 +17,18 @@ def init():
         global lightpos
         xrot = 0.0
         yrot = 0.0
-        ambient = (1.0, 1.0, 1.0, 1)
+        ambient = (0.0, 0.0, 0.0, 0.0)
         greencolor = (0.2, 0.8, 0.0, 0.8)
-        treecolor = (0.9, 0.6, 0.3, 0.8)
-        lightpos = (1.0, 1.0, 1.0)
+        treecolor = (1.0, 1.0, 1.0, 1.0)
+        lightpos = (2000.0, 2000.0, 1.0)
         glClearColor(0.5, 0.5, 0.5, 1.0)
         gluOrtho2D(-1.0, 1.0, -1.0, 1.0)
         glRotatef(30, 1.0, 1.0, 0.0)
-        glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient)
-        glEnable(GL_LIGHTING)
-        glEnable(GL_LIGHT0)
-        glLightfv(GL_LIGHT0, GL_POSITION, lightpos)
+        #glLightModelfv(GL_LIGHT_MODEL_DIFFUSE, diffuse)
+        #glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+        #glEnable(GL_LIGHTING)
+        #glEnable(GL_LIGHT0)
+        #glLightfv(GL_LIGHT0, GL_POSITION, lightpos)
 
 def specialkeys(key, x, y):
         global xrot
@@ -54,7 +55,7 @@ def draw():
         glRotatef(yrot, 0.0, 1.0, 0.0)  #!!!!!!!
         #glLightfv(GL_LIGHT0, GL_POSITION, lightpos)
 
-        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, treecolor)
+        glMaterialfv(GL_FRONT, GL_DIFFUSE, treecolor)
         #glTranslatef(0.0, 0.0, -0.7)
         #glutSolidCylinder(0.1, 0.2, 20, 20)
         #glMaterialfv(GL_FRONT, GL_DIFFUSE, greencolor)
@@ -66,29 +67,158 @@ def draw():
         #glTranslatef(0.0, 0.0, 0.3)
         #glutSolidCone(0.3, 0.3, 20, 20)
 
-        glBegin(GL_TRIANGLE_STRIP)
-        glColor3b(100,200,20)
-        glNormal3f(1,1,1)
-        
-        glVertex3f(0.0, 0.0, 0.0);
-        glColor3b(100,2,30)
-        glNormal3f(1,1,1)
-        glVertex3f(0.0, 1.0, 0.0);
-        glColor3b(1,200,30)
-        glNormal3f(1,1,1)
-        glVertex3f(0.0, 0.0, 1.0);
+        #glBegin(GL_TRIANGLE_STRIP)
+        #glColor3b(10,400,10)
+        #glNormal3f(1,1,1) 
+        #glVertex3f(0.0, 0.0, 0.0);
+        #glColor3b(100,2,30)
+        #glNormal3f(1,1,1)
+        #glVertex3f(0.0, 1.0, 0.0);
+        #glColor3b(1,200,30)
+        #glNormal3f(1,1,1)
+        #glVertex3f(0.0, 0.0, 1.0);
+        #glEnd()
         #glColor3f(100,200,30)
         #glVertex3f(0.0, 10.0, 10.0)
         #glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, greencolor)
         #glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        glEnd()
+
         #glutWireCube(1.0)
-        
+        glBegin(GL_POLYGON)
+        glColor3b(20, 10, 30)
+        glVertex3f(0.0, 0.0, 0.0)   
+        glNormal3f(1,1,1)
+     #   glColor3b(20, 40, 80)
+        glVertex3f(0.0, 0.5, 0.0) 
+        glNormal3f(1,1,1)
+     #   glColor3b(5, 40, 70)
+        glVertex3f(0.5, 0.5, 0.0) 
+        glNormal3f(1,1,1)
+      #  glColor3b(20, 40, 0)
+        glVertex3f(0.5, 0.0, 0.0)    
+        glNormal3f(1,1,1)       
+        glEnd()                 
+
         glPopMatrix()
         glutSwapBuffers()
         
         
         
+
+
+
+class Cube:
+    def __init__(self):
+        glBegin(GL_POLYGON)
+        glColor3b(20, 10, 30)
+        glVertex3f(0.0, 0.0, 0.0)   
+        glNormal3f(1,1,1)
+      #  glColor3b(20, 40, 80)
+        glVertex3f(0.0, 0.5, 0.0) 
+        glNormal3f(1,1,1)
+      #  glColor3b(5, 40, 70)
+        glVertex3f(0.5, 0.5, 0.0) 
+        glNormal3f(1,1,1)
+      #  glColor3b(20, 40, 900)
+        glVertex3f(0.5, 0.0, 0.0)    
+        glNormal3f(1,1,1)       
+        glEnd()
+
+        glBegin(GL_POLYGON)
+        glColor3b(20, 5, 40)
+        glVertex3f(0.0, 0.0, 0.0)   
+        glNormal3f(1,1,1)
+      #  glColor3b(20, 40, 80)
+        glVertex3f(0.0, 0.5, 0.0) 
+        glNormal3f(1,1,1)
+     #   glColor3b(5, 40, 70)
+        glVertex3f(0.5, 0.5, 0.0) 
+        glNormal3f(1,1,1)
+     #   glColor3b(20, 40, 90)
+        glVertex3f(0.5, 0.0, 0.0)    
+        glNormal3f(1,1,1)       
+        glEnd()
+
+        glBegin(GL_POLYGON)
+        glColor3b(50, 10, 20)
+        glVertex3f(0.0, 0.0, 0.0)   
+        glNormal3f(1,1,1)
+     #   glColor3b(20, 40, 80)
+        glVertex3f(0.0, 0.5, 0.0) 
+        glNormal3f(1,1,1)
+    #    glColor3b(5, 40, 70)
+        glVertex3f(0.5, 0.5, 0.0) 
+        glNormal3f(1,1,1)
+     #   glColor3b(20, 40, 90)
+        glVertex3f(0.5, 0.0, 0.0)    
+        glNormal3f(1,1,1)       
+        glEnd()
+
+        glBegin(GL_POLYGON)
+        glColor3b(20, 50, 10)
+        glVertex3f(0.0, 0.0, 0.0)   
+        glNormal3f(1,1,1)
+     #   glColor3b(20, 40, 80)
+        glVertex3f(0.0, 0.5, 0.0) 
+        glNormal3f(1,1,1)
+    #    glColor3b(5, 40, 70)
+        glVertex3f(0.5, 0.5, 0.0) 
+        glNormal3f(1,1,1)
+     #   glColor3b(20, 40, 90)
+        glVertex3f(0.5, 0.0, 0.0)    
+        glNormal3f(1,1,1)       
+        glEnd()
+
+        glBegin(GL_POLYGON)
+        glColor3b(10, 10, 20)
+        glVertex3f(0.0, 0.0, 0.0)   
+        glNormal3f(1,1,1)
+     #   glColor3b(20, 40, 80)
+        glVertex3f(0.0, 0.5, 0.0) 
+        glNormal3f(1,1,1)
+     #   glColor3b(5, 40, 70)
+        glVertex3f(0.5, 0.5, 0.0) 
+        glNormal3f(1,1,1)
+     #   glColor3b(20, 40, 90)
+        glVertex3f(0.5, 0.0, 0.0)    
+        glNormal3f(1,1,1)       
+        glEnd()
+
+        glBegin(GL_POLYGON)
+        glColor3b(5, 30, 30)
+        glVertex3f(0.0, 0.0, 0.0)   
+        glNormal3f(1,1,1)
+     #   glColor3b(20, 40, 80)
+        glVertex3f(0.0, 0.5, 0.0) 
+        glNormal3f(1,1,1)
+     #   glColor3b(5, 40, 70)
+        glVertex3f(0.5, 0.5, 0.0) 
+        glNormal3f(1,1,1)
+     #   glColor3b(20, 40, 90)
+        glVertex3f(0.5, 0.0, 0.0)    
+        glNormal3f(1,1,1)       
+        glEnd()
+        
+    def rotateRight(self, mode):
+        pass
+    def rotateLeft(self, mode):
+        pass
+    def rotateFront(self, mode):
+        pass
+    def rotateTop(self, mode):
+        pass
+    def rotateBottom(self, mode):
+        pass
+    def rotateBack(self, mode):
+        pass
+
+
+R = Cube
+
+
+
+
+
 glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB)
 glutInitWindowSize(300, 300)
 glutInitWindowPosition(300, 300)
@@ -102,21 +232,3 @@ glutDisplayFunc(draw)
 glutSpecialFunc(specialkeys)
 init()
 glutMainLoop()
-
-
-
-class Cube:
-    def __init__(self):
-        pass
-    def rotateRight(self, mode):
-        pass
-    def rotateLeft(self, mode):
-        pass
-    def rotateFront(self, mode):
-        pass
-    def rotateTop(self, mode):
-        pass
-    def rotateBottom(self, mode):
-        pass
-    def rotateBack(self, mode):
-        pass
