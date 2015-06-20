@@ -29,6 +29,7 @@ def init():
         #glEnable(GL_LIGHTING)
         #glEnable(GL_LIGHT0)
         #glLightfv(GL_LIGHT0, GL_POSITION, lightpos)
+        glEnable(GL_CULL_FACE)
 
 def specialkeys(key, x, y):
         global xrot
@@ -60,7 +61,7 @@ def draw():
         glRotatef(yrot, 0.0, 1.0, 0.0)  #!!!!!!!
         #glLightfv(GL_LIGHT0, GL_POSITION, lightpos)
 
-        glMaterialfv(GL_FRONT, GL_DIFFUSE, treecolor)
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, treecolor)
         #glTranslatef(0.0, 0.0, -0.7)
         #glutSolidCylinder(0.1, 0.2, 20, 20)
         #glMaterialfv(GL_FRONT, GL_DIFFUSE, greencolor)
@@ -105,6 +106,10 @@ def draw():
         glNormal3f(1,1,1)       
         glEnd()                 
         R = Cuube()
+        r = []
+        for i in range(18):
+            r.append(1)
+
 
         glPopMatrix()
         glutSwapBuffers()
@@ -134,7 +139,7 @@ def elemental(a, b):
 class Cuube:
     def __init__(self):
         glBegin(GL_POLYGON)
-        glColor3b(20, 10, 30)
+        glColor3b(50, 400, 5)
         glVertex3f(-0.5, -0.5, -0.5)   
         glNormal3f(1,1,1)
       #  glColor3b(20, 40, 80)
@@ -149,29 +154,29 @@ class Cuube:
         glEnd()
 
         glBegin(GL_POLYGON)
-        glColor3b(20, 5, 40)
+        glColor3b(50, 5, 40)
         glVertex3f(-0.5, -0.5, -0.5)   
         glNormal3f(1,1,1)
       #  glColor3b(20, 40, 80)
-        glVertex3f(-0.5, 0.5, -0.5) 
+        glVertex3f(-0.5, -0.5, 0.5) 
         glNormal3f(1,1,1)
      #   glColor3b(5, 40, 70)
-        glVertex3f(0.5, 0.5, -0.5) 
+        glVertex3f(-0.5, 0.5, 0.5) 
         glNormal3f(1,1,1)
      #   glColor3b(20, 40, 90)
-        glVertex3f(0.5, -0.5, -0.5)    
+        glVertex3f(-0.5, 0.5, -0.5)    
         glNormal3f(1,1,1)       
         glEnd()
 
         glBegin(GL_POLYGON)
-        glColor3b(50, 10, 20)
+        glColor3b(400, 50, 5)
         glVertex3f(-0.5, -0.5, -0.5)   
         glNormal3f(1,1,1)
      #   glColor3b(20, 40, 80)
-        glVertex3f(-0.5, 0.5, -0.5) 
+        glVertex3f(0.5, -0.5, -0.5) 
         glNormal3f(1,1,1)
     #    glColor3b(5, 40, 70)
-        glVertex3f(-0.5, 0.5, 0.5) 
+        glVertex3f(0.5, -0.5, 0.5) 
         glNormal3f(1,1,1)
      #   glColor3b(20, 40, 90)
         glVertex3f(-0.5, -0.5, 0.5)    
@@ -179,22 +184,22 @@ class Cuube:
         glEnd()
 
         glBegin(GL_POLYGON)
-        glColor3b(20, 50, 10)
+        glColor3b(400, 5, 50)
         glVertex3f(-0.5, -0.5, 0.5)   
         glNormal3f(1,1,1)
      #   glColor3b(20, 40, 80)
-        glVertex3f(-0.5, 0.5, 0.5) 
+        glVertex3f(0.5, -0.5, 0.5) 
         glNormal3f(1,1,1)
     #    glColor3b(5, 40, 70)
         glVertex3f(0.5, 0.5, 0.5) 
         glNormal3f(1,1,1)
      #   glColor3b(20, 40, 90)
-        glVertex3f(0.5, -0.5, 0.5)    
+        glVertex3f(-0.5, 0.5, 0.5)    
         glNormal3f(1,1,1)       
         glEnd()
 
         glBegin(GL_POLYGON)
-        glColor3b(10, 10, 20)
+        glColor3b(5, 4, 5)
         glVertex3f(0.5, -0.5, -0.5)   
         glNormal3f(1,1,1)
      #   glColor3b(20, 40, 80)
@@ -209,7 +214,7 @@ class Cuube:
         glEnd()
 
         glBegin(GL_POLYGON)
-        glColor3b(5, 30, 30)
+        glColor3b(5, 50, 400)
         glVertex3f(-0.5, 0.5, -0.5)   
         glNormal3f(1,1,1)
      #   glColor3b(20, 40, 80)
