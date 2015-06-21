@@ -35,7 +35,7 @@ def specialkeys(key, x, y):
         global xrot
         global yrot
         if key == GLUT_KEY_LEFT:
-                yrot -=3.0
+                xrot -=3.0
         if key == GLUT_KEY_RIGHT:
                 yrot += 3.0
         if key == GLUT_KEY_UP:
@@ -55,7 +55,7 @@ def draw():
         global lightpos
         global greencolor
         global treecolor
-        glClear(GL_COLOR_BUFFER_BIT)
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glPushMatrix()
         glRotatef(xrot, 1.0, 0.0, 0.0)
         glRotatef(yrot, 0.0, 1.0, 0.0)  #!!!!!!!
@@ -107,21 +107,113 @@ def draw():
         glEnd()                 
         R = Cuube()
         r = []
+
+        edges = [[-0.2, -0.2, -0.2], [-0.2, -0.2, 0.2], [0.2, -0.2, 0.2], [0.2, -0.2, -0.2], [-0.2, 0.2, -0.2], [-0.2, 0.2, 0.2], [0.2, 0.2, 0.2], [0.2, 0.2, -0.2]]    
+        colours = [  [  [100, 0, 0], [0, 100, 0], [0, 0, 100], [5, 5, 5], [5, 5, 5], [5, 5, 5], [5, 5, 5]  ], 
+                 [  [100, 0, 0], [5, 5, 5], [0, 0, 100], [5, 5, 5], [40, 0, 40], [5, 5, 5], [5, 5, 5]  ], 
+                 [  [100, 0, 0], [0, 100, 0], [5, 5, 5], [5, 5, 5], [5, 5, 5], [0, 40, 40], [5, 5, 5]  ],
+                 [  [5, 5, 5], [0, 100, 0], [0, 0, 100], [40, 40, 0], [5, 5, 5], [5, 5, 5], [5, 5, 5]  ], 
+                 [  [100, 0, 0], [5, 5, 5], [5, 5, 5], [5, 5, 5], [40, 0, 40], [0, 40, 40], [5, 5, 5]  ], 
+                 [  [5, 5, 5], [5, 5, 5], [0, 0, 100], [40, 40, 0], [40, 0, 40], [5, 5, 5], [5, 5, 5]  ],
+                 [  [5, 5, 5], [0, 100, 0], [5, 5, 5], [40, 40, 0], [5, 5, 5], [0, 40, 40], [5, 5, 5]  ],
+                 [  [5, 5, 5], [5, 5, 5], [5, 5, 5], [40, 40, 0], [40, 0, 40], [0, 40, 40], [5, 5, 5]  ]   ]
+        def cube(edges, q, d):
+            www = colours[d]
+            glBegin(GL_POLYGON)
+            glColor3b(  www[0][0], www[0][1], www[0][2] )
+            glVertex3f(edges[0][0] + q[0], edges[0][1] + q[1], edges[0][2] + q[2])   
+            glNormal3f(1,1,1)
+            glVertex3f(edges[4][0] + q[0], edges[4][1] + q[1], edges[4][2] + q[2]) 
+            glNormal3f(1,1,1)
+            glVertex3f(edges[7][0] + q[0], edges[7][1] + q[1], edges[7][2] + q[2]) 
+            glNormal3f(1,1,1)
+            glVertex3f(edges[3][0] + q[0], edges[3][1] + q[1], edges[3][2] + q[2])    
+            glNormal3f(1,1,1)       
+            glEnd()
+
+            glBegin(GL_POLYGON)
+            glColor3b(  www[1][0], www[1][1], www[1][2]  )
+            glVertex3f(edges[0][0]+ q[0], edges[0][1]+ q[1], edges[0][2] + q[2])   
+            glNormal3f(1,1,1)
+            glVertex3f(edges[1][0]+ q[0], edges[1][1]+ q[1], edges[1][2] + q[2]) 
+            glNormal3f(1,1,1)
+            glVertex3f(edges[5][0]+ q[0], edges[5][1]+ q[1], edges[5][2] + q[2]) 
+            glNormal3f(1,1,1)
+            glVertex3f(edges[4][0]+ q[0], edges[4][1]+ q[1], edges[4][2] + q[2])       
+            glNormal3f(1,1,1)       
+            glEnd()
+
+            glBegin(GL_POLYGON)
+            glColor3b(www[2][0], www[2][1], www[2][2])
+            glVertex3f(edges[0][0]+ q[0], edges[0][1]+ q[1], edges[0][2]+ q[2] )   
+            glNormal3f(1,1,1)
+            glVertex3f(edges[3][0]+ q[0], edges[3][1]+ q[1], edges[3][2]+ q[2] ) 
+            glNormal3f(1,1,1)
+            glVertex3f(edges[2][0]+ q[0], edges[2][1]+ q[1], edges[2][2]+ q[2] ) 
+            glNormal3f(1,1,1)
+            glVertex3f(edges[1][0]+ q[0], edges[1][1]+ q[1], edges[1][2]+ q[2] )    
+            glNormal3f(1,1,1)       
+            glEnd()
+
+            glBegin(GL_POLYGON)
+            glColor3b(www[3][0], www[3][1], www[3][2])
+            glVertex3f(edges[1][0]+ q[0], edges[1][1]+ q[1], edges[1][2]+ q[2] )   
+            glNormal3f(1,1,1)
+            glVertex3f(edges[2][0]+ q[0], edges[2][1]+ q[1], edges[2][2]+ q[2] ) 
+            glNormal3f(1,1,1)
+            glVertex3f(edges[6][0]+ q[0], edges[6][1]+ q[1], edges[6][2]+ q[2] ) 
+            glNormal3f(1,1,1)
+            glVertex3f(edges[5][0]+ q[0], edges[5][1]+ q[1], edges[5][2]+ q[2] )    
+            glNormal3f(1,1,1)       
+            glEnd()
+
+            glBegin(GL_POLYGON)
+            glColor3b(www[4][0], www[4][1], www[4][2])
+            glVertex3f(edges[3][0]+ q[0], edges[3][1]+ q[1], edges[3][2]+ q[2] )   
+            glNormal3f(1,1,1)
+            glVertex3f(edges[7][0]+ q[0], edges[7][1]+ q[1], edges[7][2]+ q[2] ) 
+            glNormal3f(1,1,1)
+            glVertex3f(edges[6][0]+ q[0], edges[6][1]+ q[1], edges[6][2]+ q[2] ) 
+            glNormal3f(1,1,1)
+            glVertex3f(edges[2][0]+ q[0], edges[2][1]+ q[1], edges[2][2]+ q[2] )    
+            glNormal3f(1,1,1)       
+            glEnd()
+
+            glBegin(GL_POLYGON)
+            glColor3b(www[5][0], www[5][1], www[5][2])
+            glVertex3f(edges[4][0]+ q[0], edges[4][1]+ q[1], edges[4][2]+ q[2] )   
+            glNormal3f(1,1,1)
+            glVertex3f(edges[5][0]+ q[0], edges[5][1]+ q[1], edges[5][2]+ q[2] ) 
+            glNormal3f(1,1,1)
+            glVertex3f(edges[6][0]+ q[0], edges[6][1]+ q[1], edges[6][2]+ q[2] ) 
+            glNormal3f(1,1,1)
+            glVertex3f(edges[7][0]+ q[0], edges[7][1]+ q[1], edges[7][2]+ q[2] )    
+            glNormal3f(1,1,1)       
+            glEnd()
+
         for i in range(18):
-            r.append(1)
-
-
+            r.append(1)    
+        q = [0, 0, 0]
+        l = [0.4, 0, 0]
+        u = [0, 0.4, 0]     
+        i = [0, 0, 0.4]        
+        m = [0.4, 0.4, 0]        
+        j = [0.4, 0, 0.4]
+        n = [0, 0.4, 0.4]
+        h = [0.4, 0.4, 0.4]
+        wq = cube(edges, q, 0)
+        wl = cube(edges, l, 1)
+        wu = cube(edges, u, 2)      
+        wi = cube(edges, i, 3)   
+        wm = cube(edges, m, 4)
+        wj = cube(edges, j, 5)     
+        wn = cube(edges, n, 6)      
+        wh = cube(edges, h, 7)
         glPopMatrix()
         glutSwapBuffers()
         
         
-a = [50, 400, 5]
-b = [50, 5, 400]
-c = [400, 50, 5]
-d = [400, 5, 50]
-e = [5, 400, 50]
-f = [5, 50, 400]       
-g = [5, 5, 5] 
+
 def elemental(a, b):
         glBegin(GL_POLYGON)
         glColor3b(a[0], a[1], a[2])
@@ -138,95 +230,7 @@ def elemental(a, b):
 
 class Cuube:
     def __init__(self):
-        glBegin(GL_POLYGON)
-        glColor3b(50, 400, 5)
-        glVertex3f(-0.5, -0.5, -0.5)   
-        glNormal3f(1,1,1)
-      #  glColor3b(20, 40, 80)
-        glVertex3f(-0.5, 0.5, -0.5) 
-        glNormal3f(1,1,1)
-      #  glColor3b(5, 40, 70)
-        glVertex3f(0.5, 0.5, -0.5) 
-        glNormal3f(1,1,1)
-      #  glColor3b(20, 40, 900)
-        glVertex3f(0.5, -0.5, -0.5)    
-        glNormal3f(1,1,1)       
-        glEnd()
-
-        glBegin(GL_POLYGON)
-        glColor3b(50, 5, 40)
-        glVertex3f(-0.5, -0.5, -0.5)   
-        glNormal3f(1,1,1)
-      #  glColor3b(20, 40, 80)
-        glVertex3f(-0.5, -0.5, 0.5) 
-        glNormal3f(1,1,1)
-     #   glColor3b(5, 40, 70)
-        glVertex3f(-0.5, 0.5, 0.5) 
-        glNormal3f(1,1,1)
-     #   glColor3b(20, 40, 90)
-        glVertex3f(-0.5, 0.5, -0.5)    
-        glNormal3f(1,1,1)       
-        glEnd()
-
-        glBegin(GL_POLYGON)
-        glColor3b(400, 50, 5)
-        glVertex3f(-0.5, -0.5, -0.5)   
-        glNormal3f(1,1,1)
-     #   glColor3b(20, 40, 80)
-        glVertex3f(0.5, -0.5, -0.5) 
-        glNormal3f(1,1,1)
-    #    glColor3b(5, 40, 70)
-        glVertex3f(0.5, -0.5, 0.5) 
-        glNormal3f(1,1,1)
-     #   glColor3b(20, 40, 90)
-        glVertex3f(-0.5, -0.5, 0.5)    
-        glNormal3f(1,1,1)       
-        glEnd()
-
-        glBegin(GL_POLYGON)
-        glColor3b(400, 5, 50)
-        glVertex3f(-0.5, -0.5, 0.5)   
-        glNormal3f(1,1,1)
-     #   glColor3b(20, 40, 80)
-        glVertex3f(0.5, -0.5, 0.5) 
-        glNormal3f(1,1,1)
-    #    glColor3b(5, 40, 70)
-        glVertex3f(0.5, 0.5, 0.5) 
-        glNormal3f(1,1,1)
-     #   glColor3b(20, 40, 90)
-        glVertex3f(-0.5, 0.5, 0.5)    
-        glNormal3f(1,1,1)       
-        glEnd()
-
-        glBegin(GL_POLYGON)
-        glColor3b(5, 4, 5)
-        glVertex3f(0.5, -0.5, -0.5)   
-        glNormal3f(1,1,1)
-     #   glColor3b(20, 40, 80)
-        glVertex3f(0.5, 0.5, -0.5) 
-        glNormal3f(1,1,1)
-     #   glColor3b(5, 40, 70)
-        glVertex3f(0.5, 0.5, 0.5) 
-        glNormal3f(1,1,1)
-     #   glColor3b(20, 40, 90)
-        glVertex3f(0.5, -0.5, 0.5)    
-        glNormal3f(1,1,1)       
-        glEnd()
-
-        glBegin(GL_POLYGON)
-        glColor3b(5, 50, 400)
-        glVertex3f(-0.5, 0.5, -0.5)   
-        glNormal3f(1,1,1)
-     #   glColor3b(20, 40, 80)
-        glVertex3f(-0.5, 0.5, 0.5) 
-        glNormal3f(1,1,1)
-     #   glColor3b(5, 40, 70)
-        glVertex3f(0.5, 0.5, 0.5) 
-        glNormal3f(1,1,1)
-     #   glColor3b(20, 40, 90)
-        glVertex3f(0.5, 0.5, -0.5)    
-        glNormal3f(1,1,1)       
-        glEnd()
+        pass
         
     def rotateRight(self, mode):
         pass
@@ -247,15 +251,15 @@ class Cuube:
 
 
 
-glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB)
-glutInitWindowSize(300, 300)
+glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
+glutInitWindowSize(700, 700)
 glutInitWindowPosition(300, 300)
 glutInit(sys.argv)
 glutCreateWindow(b"Happy New Year!")
 
 #class cubik:
         #glutWireCube(0.5)
-
+glEnable(GL_DEPTH_TEST)
 glutDisplayFunc(draw)
 glutSpecialFunc(specialkeys)
 init()
