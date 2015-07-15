@@ -2,6 +2,12 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 import sys
+LEFT = 1 #!
+RED = [127, -128, -128]
+PURPLE = [123, 18, 54]
+BLACK = [5, 5, 5]
+ORANGE = [0, 127, 0]
+
 global xrot
 global yrot
 global ambient
@@ -30,7 +36,7 @@ def init():
         #glEnable(GL_LIGHT0)
         #glLightfv(GL_LIGHT0, GL_POSITION, lightpos)
         glEnable(GL_CULL_FACE)
-
+  
 def specialkeys(key, x, y):
         global xrot
         global yrot
@@ -108,108 +114,64 @@ def draw():
         R = Cuube()
         r = []
 
-        edges = [[-0.2, -0.2, -0.2], [-0.2, -0.2, 0.2], [0.2, -0.2, 0.2], [0.2, -0.2, -0.2], [-0.2, 0.2, -0.2], [-0.2, 0.2, 0.2], [0.2, 0.2, 0.2], [0.2, 0.2, -0.2]]    
-        colours = [  [  [100, 0, 0], [0, 100, 0], [0, 0, 100], [5, 5, 5], [5, 5, 5], [5, 5, 5], [5, 5, 5]  ], 
-                 [  [100, 0, 0], [5, 5, 5], [0, 0, 100], [5, 5, 5], [40, 0, 40], [5, 5, 5], [5, 5, 5]  ], 
-                 [  [100, 0, 0], [0, 100, 0], [5, 5, 5], [5, 5, 5], [5, 5, 5], [0, 40, 40], [5, 5, 5]  ],
-                 [  [5, 5, 5], [0, 100, 0], [0, 0, 100], [40, 40, 0], [5, 5, 5], [5, 5, 5], [5, 5, 5]  ], 
-                 [  [100, 0, 0], [5, 5, 5], [5, 5, 5], [5, 5, 5], [40, 0, 40], [0, 40, 40], [5, 5, 5]  ], 
-                 [  [5, 5, 5], [5, 5, 5], [0, 0, 100], [40, 40, 0], [40, 0, 40], [5, 5, 5], [5, 5, 5]  ],
-                 [  [5, 5, 5], [0, 100, 0], [5, 5, 5], [40, 40, 0], [5, 5, 5], [0, 40, 40], [5, 5, 5]  ],
-                 [  [5, 5, 5], [5, 5, 5], [5, 5, 5], [40, 40, 0], [40, 0, 40], [0, 40, 40], [5, 5, 5]  ]   ]
-        def cube(edges, q, d):
-            www = colours[d]
-            glBegin(GL_POLYGON)
-            glColor3b(  www[0][0], www[0][1], www[0][2] )
-            glVertex3f(edges[0][0] + q[0], edges[0][1] + q[1], edges[0][2] + q[2])   
-            glNormal3f(1,1,1)
-            glVertex3f(edges[4][0] + q[0], edges[4][1] + q[1], edges[4][2] + q[2]) 
-            glNormal3f(1,1,1)
-            glVertex3f(edges[7][0] + q[0], edges[7][1] + q[1], edges[7][2] + q[2]) 
-            glNormal3f(1,1,1)
-            glVertex3f(edges[3][0] + q[0], edges[3][1] + q[1], edges[3][2] + q[2])    
-            glNormal3f(1,1,1)       
-            glEnd()
+        vertexs = [[-0.2, -0.2, -0.2], [-0.2, -0.2, 0.2], [0.2, -0.2, 0.2], [0.2, -0.2, -0.2], [-0.2, 0.2, -0.2], [-0.2, 0.2, 0.2], [0.2, 0.2, 0.2], [0.2, 0.2, -0.2]]    
+        colours = [ [  RED, ORANGE, [0, 0, 127], [5, 5, 5], [5, 5, 5], [5, 5, 5],  ], 
+                    [  RED, [5, 5, 5], [0, 0, 127], [5, 5, 5], [40, 0, 40], [5, 5, 5],  ], 
+                    [  RED, ORANGE, [5, 5, 5], [5, 5, 5], [5, 5, 5], PURPLE,  ],
+                    [  [5, 5, 5], ORANGE, [0, 0, 127], [40, 40, 0], [5, 5, 5], [5, 5, 5],  ], 
+                    [  RED, [5, 5, 5], [5, 5, 5], [5, 5, 5], [40, 0, 40], PURPLE,  ], 
+                    [  [5, 5, 5], [5, 5, 5], [0, 0, 127], [40, 40, 0], [40, 0, 40], [5, 5, 5],  ],
+                    [  [5, 5, 5], ORANGE, [5, 5, 5], [40, 40, 0], [5, 5, 5], PURPLE,  ],
+                    [  [5, 5, 5], [5, 5, 5], [5, 5, 5], [40, 40, 0], [40, 0, 40], PURPLE,  ]   ]
 
-            glBegin(GL_POLYGON)
-            glColor3b(  www[1][0], www[1][1], www[1][2]  )
-            glVertex3f(edges[0][0]+ q[0], edges[0][1]+ q[1], edges[0][2] + q[2])   
-            glNormal3f(1,1,1)
-            glVertex3f(edges[1][0]+ q[0], edges[1][1]+ q[1], edges[1][2] + q[2]) 
-            glNormal3f(1,1,1)
-            glVertex3f(edges[5][0]+ q[0], edges[5][1]+ q[1], edges[5][2] + q[2]) 
-            glNormal3f(1,1,1)
-            glVertex3f(edges[4][0]+ q[0], edges[4][1]+ q[1], edges[4][2] + q[2])       
-            glNormal3f(1,1,1)       
-            glEnd()
+        colours = [ ]        
+        for i in range(3):
+            colours.append([])
+            for j in range(3):
+                colours[i].append([])
+                for k in range(3):
+                    colours[i][j].append([])
+                    for l in range(6):
+                       
+                        colours[i][j][k].append(BLACK)
 
-            glBegin(GL_POLYGON)
-            glColor3b(www[2][0], www[2][1], www[2][2])
-            glVertex3f(edges[0][0]+ q[0], edges[0][1]+ q[1], edges[0][2]+ q[2] )   
-            glNormal3f(1,1,1)
-            glVertex3f(edges[3][0]+ q[0], edges[3][1]+ q[1], edges[3][2]+ q[2] ) 
-            glNormal3f(1,1,1)
-            glVertex3f(edges[2][0]+ q[0], edges[2][1]+ q[1], edges[2][2]+ q[2] ) 
-            glNormal3f(1,1,1)
-            glVertex3f(edges[1][0]+ q[0], edges[1][1]+ q[1], edges[1][2]+ q[2] )    
-            glNormal3f(1,1,1)       
-            glEnd()
+        for i in colours[0]:
+            for j in i:
+                j[1] = RED
 
-            glBegin(GL_POLYGON)
-            glColor3b(www[3][0], www[3][1], www[3][2])
-            glVertex3f(edges[1][0]+ q[0], edges[1][1]+ q[1], edges[1][2]+ q[2] )   
-            glNormal3f(1,1,1)
-            glVertex3f(edges[2][0]+ q[0], edges[2][1]+ q[1], edges[2][2]+ q[2] ) 
-            glNormal3f(1,1,1)
-            glVertex3f(edges[6][0]+ q[0], edges[6][1]+ q[1], edges[6][2]+ q[2] ) 
-            glNormal3f(1,1,1)
-            glVertex3f(edges[5][0]+ q[0], edges[5][1]+ q[1], edges[5][2]+ q[2] )    
-            glNormal3f(1,1,1)       
-            glEnd()
+       
 
-            glBegin(GL_POLYGON)
-            glColor3b(www[4][0], www[4][1], www[4][2])
-            glVertex3f(edges[3][0]+ q[0], edges[3][1]+ q[1], edges[3][2]+ q[2] )   
-            glNormal3f(1,1,1)
-            glVertex3f(edges[7][0]+ q[0], edges[7][1]+ q[1], edges[7][2]+ q[2] ) 
-            glNormal3f(1,1,1)
-            glVertex3f(edges[6][0]+ q[0], edges[6][1]+ q[1], edges[6][2]+ q[2] ) 
-            glNormal3f(1,1,1)
-            glVertex3f(edges[2][0]+ q[0], edges[2][1]+ q[1], edges[2][2]+ q[2] )    
-            glNormal3f(1,1,1)       
-            glEnd()
+        def cube(vertexs, q, www):
+            
+            def edge(v1, v2, v3, v4, q, colour):
+                glBegin(GL_POLYGON)
+                glColor3b(  colour[0], colour[1], colour[2] )
+                glVertex3f(v1[0] + q[0], v1[1] + q[1], v1[2] + q[2])   
+                glNormal3f(1,1,1)
+                glVertex3f(v2[0] + q[0], v2[1] + q[1], v2[2] + q[2]) 
+                glNormal3f(1,1,1)
+                glVertex3f(v3[0] + q[0], v3[1] + q[1], v3[2] + q[2]) 
+                glNormal3f(1,1,1)
+                glVertex3f(v4[0] + q[0], v4[1] + q[1], v4[2] + q[2])    
+                glNormal3f(1,1,1)       
+                glEnd()
+            edge(vertexs[0], vertexs[4], vertexs[7], vertexs[3], q, www[0])
+            edge(vertexs[0], vertexs[1], vertexs[5], vertexs[4], q, www[1])
+            edge(vertexs[0], vertexs[3], vertexs[2], vertexs[1], q, www[2])
+            edge(vertexs[1], vertexs[2], vertexs[6], vertexs[5], q, www[3])
+            edge(vertexs[3], vertexs[7], vertexs[6], vertexs[2], q, www[4])
+            edge(vertexs[4], vertexs[5], vertexs[6], vertexs[7], q, www[5])
 
-            glBegin(GL_POLYGON)
-            glColor3b(www[5][0], www[5][1], www[5][2])
-            glVertex3f(edges[4][0]+ q[0], edges[4][1]+ q[1], edges[4][2]+ q[2] )   
-            glNormal3f(1,1,1)
-            glVertex3f(edges[5][0]+ q[0], edges[5][1]+ q[1], edges[5][2]+ q[2] ) 
-            glNormal3f(1,1,1)
-            glVertex3f(edges[6][0]+ q[0], edges[6][1]+ q[1], edges[6][2]+ q[2] ) 
-            glNormal3f(1,1,1)
-            glVertex3f(edges[7][0]+ q[0], edges[7][1]+ q[1], edges[7][2]+ q[2] )    
-            glNormal3f(1,1,1)       
-            glEnd()
 
-        for i in range(18):
-            r.append(1)    
-        q = [0, 0, 0]
-        l = [0.4, 0, 0]
-        u = [0, 0.4, 0]     
-        i = [0, 0, 0.4]        
-        m = [0.4, 0.4, 0]        
-        j = [0.4, 0, 0.4]
-        n = [0, 0.4, 0.4]
-        h = [0.4, 0.4, 0.4]
-        wq = cube(edges, q, 0)
-        wl = cube(edges, l, 1)
-        wu = cube(edges, u, 2)      
-        wi = cube(edges, i, 3)   
-        wm = cube(edges, m, 4)
-        wj = cube(edges, j, 5)     
-        wn = cube(edges, n, 6)      
-        wh = cube(edges, h, 7)
+        for i in range(3):
+            for j in range(3):
+                for k in range(3):
+                    cube(vertexs, [(i - 1)*0.45, (j - 1)*0.45, (k - 1)*0.45], colours[i][j][k])
+
+
+
         glPopMatrix()
+
         glutSwapBuffers()
         
         
