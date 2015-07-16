@@ -4,9 +4,12 @@ from OpenGL.GLUT import *
 import sys
 LEFT = 1 #!
 RED = [127, -128, -128]
-PURPLE = [123, 18, 54]
+PINK = [123, 18, 54]
 BLACK = [5, 5, 5]
 ORANGE = [0, 127, 0]
+PURPLE = [40, 0, 40]
+GREEN = [0, 0, 127]
+BLUE = [40, 40, 0]
 
 global xrot
 global yrot
@@ -115,7 +118,7 @@ def draw():
         r = []
 
         vertexs = [[-0.2, -0.2, -0.2], [-0.2, -0.2, 0.2], [0.2, -0.2, 0.2], [0.2, -0.2, -0.2], [-0.2, 0.2, -0.2], [-0.2, 0.2, 0.2], [0.2, 0.2, 0.2], [0.2, 0.2, -0.2]]    
-        colours = [ [  RED, ORANGE, [0, 0, 127], [5, 5, 5], [5, 5, 5], [5, 5, 5],  ], 
+        colours = [ [  RED, ORANGE, [0, 0, 127],      [5, 5, 5]  , [5, 5, 5], [5, 5, 5],  ], 
                     [  RED, [5, 5, 5], [0, 0, 127], [5, 5, 5], [40, 0, 40], [5, 5, 5],  ], 
                     [  RED, ORANGE, [5, 5, 5], [5, 5, 5], [5, 5, 5], PURPLE,  ],
                     [  [5, 5, 5], ORANGE, [0, 0, 127], [40, 40, 0], [5, 5, 5], [5, 5, 5],  ], 
@@ -132,13 +135,26 @@ def draw():
                 for k in range(3):
                     colours[i][j].append([])
                     for l in range(6):
-                       
                         colours[i][j][k].append(BLACK)
 
         for i in colours[0]:
             for j in i:
                 j[1] = RED
-
+        for i in range(3):
+            for j in colours[i][0]:
+                j[2] = GREEN
+        for i in range(3):
+            for j in colours[i][2]:
+                j[5] = BLUE
+        for i in colours[2]:
+            for j in i:
+                j[4] = ORANGE             
+        for i in colours:
+            for j in i:
+                j[0][0] = PURPLE
+        for i in colours:
+            for j in i:
+                j[2][3] = PINK                
        
 
         def cube(vertexs, q, www):
@@ -214,14 +230,14 @@ class Cuube:
 
 
 glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
-glutInitWindowSize(700, 700)
-glutInitWindowPosition(300, 300)
 glutInit(sys.argv)
 glutCreateWindow(b"Happy New Year!")
 
 #class cubik:
         #glutWireCube(0.5)
 glEnable(GL_DEPTH_TEST)
+glutInitWindowSize(700, 700)
+glutInitWindowPosition(300, 300)
 glutDisplayFunc(draw)
 glutSpecialFunc(specialkeys)
 init()
