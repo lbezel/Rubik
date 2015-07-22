@@ -51,13 +51,14 @@ def specialkeys(key, x, y):
                 xrot -=3.0
         if key == GLUT_KEY_DOWN:
                 xrot += 3.0
-        
         glutPostRedisplay()
-#Cuubes =[]
-#for i in range(18):
-       # p = p
-     #   coordinates = []
-    #    Cuubes.append(Cube(p, coordinates))        
+def keyboardkeys(key, x, y):     
+        global xrot
+        global yrot
+        if key == 61:      # клавиша ,а, , есл верить ascii
+                xrot += 10.0
+        glutPostRedisplay()
+
 def draw():
         global xrot
         global yrot
@@ -98,22 +99,7 @@ def draw():
         #glVertex3f(0.0, 10.0, 10.0)
         #glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, greencolor)
         #glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-        #glutWireCube(1.0)
-        glBegin(GL_POLYGON)
-        glColor3b(20, 10, 30)
-        glVertex3f(0.0, 0.0, 0.0)   
-        glNormal3f(1,1,1)
-     #   glColor3b(20, 40, 80)
-        glVertex3f(0.0, 0.5, 0.0) 
-        glNormal3f(1,1,1)
-     #   glColor3b(5, 40, 70)
-        glVertex3f(0.5, 0.5, 0.0) 
-        glNormal3f(1,1,1)
-      #  glColor3b(20, 40, 0)
-        glVertex3f(0.5, 0.0, 0.0)    
-        glNormal3f(1,1,1)       
-        glEnd()                 
+          
         R = Cuube()
         r = []
 
@@ -240,5 +226,9 @@ glutInitWindowSize(700, 700)
 glutInitWindowPosition(300, 300)
 glutDisplayFunc(draw)
 glutSpecialFunc(specialkeys)
+glutKeyboardFunc(keyboardkeys)
+
+
 init()
 glutMainLoop()
+
