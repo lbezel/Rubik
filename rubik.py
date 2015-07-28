@@ -20,7 +20,7 @@ global lightpos
 global colours
 def init():
         global colours
-        global xrot
+        global xrot   
         global yrot
         global ambient
         global greencolor
