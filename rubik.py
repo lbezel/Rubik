@@ -9,15 +9,17 @@ BLACK = [5, 5, 5]
 ORANGE = [0, 127, 0]
 PURPLE = [40, 0, 40]
 GREEN = [0, 0, 127]
-BLUE = [40, 40, 0]
-
+BLUE = [0, 0, 34]
+NEW = [40, 40, 0]
 global xrot
 global yrot
 global ambient
 global greencolor
 global treecolor
 global lightpos
+global colours
 def init():
+        global colours
         global xrot
         global yrot
         global ambient
@@ -26,6 +28,34 @@ def init():
         global lightpos
         xrot = 0.0
         yrot = 0.0
+        colours = [ ]        
+        for i in range(3):
+            colours.append([])
+            for j in range(3):
+                colours[i].append([])
+                for k in range(3):
+                    colours[i][j].append([])
+                    for l in range(6):
+                        colours[i][j][k].append(BLACK)
+
+        for i in colours[0]:
+            for j in i:
+                j[1] = RED
+        for i in range(3):
+            for j in colours[i][0]:
+                j[2] = GREEN
+        for i in range(3):
+            for j in colours[i][2]:
+                j[5] = BLUE
+        for i in colours[2]:
+            for j in i:
+                j[4] = ORANGE             
+        for i in colours:
+            for j in i:
+                j[0][0] = PURPLE
+        for i in colours:
+            for j in i:
+                j[2][3] = PINK      
         ambient = (0.0, 0.0, 0.0, 0.0)
         greencolor = (0.2, 0.8, 0.0, 0.8)
         treecolor = (1.0, 1.0, 1.0, 1.0)
@@ -43,8 +73,10 @@ def init():
 def specialkeys(key, x, y):
         global xrot
         global yrot
+
         if key == GLUT_KEY_LEFT:
                 xrot -=3.0
+                
         if key == GLUT_KEY_RIGHT:
                 yrot += 3.0
         if key == GLUT_KEY_UP:
@@ -53,13 +85,18 @@ def specialkeys(key, x, y):
                 xrot += 3.0
         glutPostRedisplay()
 def keyboardkeys(key, x, y):     
+        global colours
         global xrot
         global yrot
-        if key == 61:      # клавиша ,а, , есл верить ascii
-                xrot += 10.0
-        glutPostRedisplay()
+       # colours[0][0][0][0] = colours[2][2][2], colours[2][2][2] = colours[0][0][0]
+        colours[0][2][0][5] = NEW
+        if key == 70:
+                
+                print("ihear")
+      #  glutPostRedisplay()
 
 def draw():
+        global colours
         global xrot
         global yrot
         global lightpos
@@ -104,43 +141,8 @@ def draw():
         r = []
 
         vertexs = [[-0.2, -0.2, -0.2], [-0.2, -0.2, 0.2], [0.2, -0.2, 0.2], [0.2, -0.2, -0.2], [-0.2, 0.2, -0.2], [-0.2, 0.2, 0.2], [0.2, 0.2, 0.2], [0.2, 0.2, -0.2]]    
-        colours = [ [  RED, ORANGE, [0, 0, 127],      [5, 5, 5]  , [5, 5, 5], [5, 5, 5],  ], 
-                    [  RED, [5, 5, 5], [0, 0, 127], [5, 5, 5], [40, 0, 40], [5, 5, 5],  ], 
-                    [  RED, ORANGE, [5, 5, 5], [5, 5, 5], [5, 5, 5], PURPLE,  ],
-                    [  [5, 5, 5], ORANGE, [0, 0, 127], [40, 40, 0], [5, 5, 5], [5, 5, 5],  ], 
-                    [  RED, [5, 5, 5], [5, 5, 5], [5, 5, 5], [40, 0, 40], PURPLE,  ], 
-                    [  [5, 5, 5], [5, 5, 5], [0, 0, 127], [40, 40, 0], [40, 0, 40], [5, 5, 5],  ],
-                    [  [5, 5, 5], ORANGE, [5, 5, 5], [40, 40, 0], [5, 5, 5], PURPLE,  ],
-                    [  [5, 5, 5], [5, 5, 5], [5, 5, 5], [40, 40, 0], [40, 0, 40], PURPLE,  ]   ]
 
-        colours = [ ]        
-        for i in range(3):
-            colours.append([])
-            for j in range(3):
-                colours[i].append([])
-                for k in range(3):
-                    colours[i][j].append([])
-                    for l in range(6):
-                        colours[i][j][k].append(BLACK)
-
-        for i in colours[0]:
-            for j in i:
-                j[1] = RED
-        for i in range(3):
-            for j in colours[i][0]:
-                j[2] = GREEN
-        for i in range(3):
-            for j in colours[i][2]:
-                j[5] = BLUE
-        for i in colours[2]:
-            for j in i:
-                j[4] = ORANGE             
-        for i in colours:
-            for j in i:
-                j[0][0] = PURPLE
-        for i in colours:
-            for j in i:
-                j[2][3] = PINK                
+          
        
 
         def cube(vertexs, q, www):
