@@ -20,7 +20,7 @@ global lightpos
 global colours
 def init():
         global colours
-        global xrot   
+        global xrot
         global yrot
         global ambient
         global greencolor
@@ -37,7 +37,6 @@ def init():
                     colours[i][j].append([])
                     for l in range(6):
                         colours[i][j][k].append(BLACK)
-
         for i in colours[0]:
             for j in i:
                 j[1] = RED
@@ -73,10 +72,8 @@ def init():
 def specialkeys(key, x, y):
         global xrot
         global yrot
-
         if key == GLUT_KEY_LEFT:
                 xrot -=3.0
-                
         if key == GLUT_KEY_RIGHT:
                 yrot += 3.0
         if key == GLUT_KEY_UP:
@@ -84,16 +81,84 @@ def specialkeys(key, x, y):
         if key == GLUT_KEY_DOWN:
                 xrot += 3.0
         glutPostRedisplay()
+
 def keyboardkeys(key, x, y):     
         global colours
         global xrot
         global yrot
-       # colours[0][0][0][0] = colours[2][2][2], colours[2][2][2] = colours[0][0][0]
-        colours[0][2][0][5] = NEW
-        if key == 70:
-                
-                print("ihear")
-      #  glutPostRedisplay()
+
+        def x_rotate(i):
+            for j in range(3):
+                der = colours[i][2][j][5]
+                des = colours[i][j][2][3]
+                colours[i][2][j][5] = des
+                colours[i][j][2][3] = der
+            for k in range(3):
+                der = colours[i][k][2][3]
+                des = colours[i][0][k][2]
+                colours[i][k][2][3] = des    
+                colours[i][0][k][2] = der
+            for l in range(3):
+                der = colours[i][0][l][2]
+                des = colours[i][l][0][0]
+                colours[i][0][l][2] = des    
+                colours[i][l][0][0] = der  
+
+        def y_rotate(i):
+            for j in range(3):
+                der = colours[j][i][2][3]
+                des = colours[2][i][j][4]
+                colours[j][i][2][3] = des
+                colours[2][i][j][4] = der  
+            for k in range(3):
+                der = colours[2][i][k][4]
+                des = colours[k][i][0][0]
+                colours[2][i][k][4] = des
+                colours[k][i][0][0] = der
+            for l in range(3):
+                der = colours[l][i][0][0]
+                des = colours[0][i][l][1]
+                colours[l][i][0][0] = des
+                colours[0][i][l][1] = der 
+
+        def z_rotate(i):
+            for j in range(3):
+                der = colours[0][j][i][1]
+                des = colours[j][2][i][5]
+                colours[0][j][i][1] = des
+                colours[j][2][i][5] = der  
+            for k in range(3):
+                der = colours[k][2][i][5]
+                des = colours[2][k][i][4]
+                colours[k][2][i][5] = des
+                colours[2][k][i][4] = der  
+            for l in range(3):
+                der = colours[2][l][i][4]
+                des = colours[l][0][i][2]
+                colours[2][l][i][4] = des
+                colours[l][0][i][2] = der               
+
+        defname = input()      
+        if defname == 'xmiddle':
+            x_rotate(1)
+        if defname == 'xleft':
+            x_rotate(0)
+        if defname == 'xright':
+            x_rotate(2)
+        if defname == 'yoben':
+            y_rotate(2)       
+        if defname == 'yunter':
+            y_rotate(0)   
+        if defname == 'ymiddle':
+            y_rotate(1)   
+        if defname == 'znear':
+            z_rotate(2)  
+        if defname == 'zmiddle':
+            z_rotate(1)
+        if defname == 'zweit':
+            z_rotate(0)                
+
+        glutPostRedisplay()
 
 def draw():
         global colours
@@ -140,11 +205,10 @@ def draw():
         R = Cuube()
         r = []
 
-        vertexs = [[-0.2, -0.2, -0.2], [-0.2, -0.2, 0.2], [0.2, -0.2, 0.2], [0.2, -0.2, -0.2], [-0.2, 0.2, -0.2], [-0.2, 0.2, 0.2], [0.2, 0.2, 0.2], [0.2, 0.2, -0.2]]    
-
-          
-       
-
+        vertexs = [[-0.2, -0.2, -0.2], [-0.2, -0.2, 0.2], 
+        [0.2, -0.2, 0.2], [0.2, -0.2, -0.2], [-0.2, 0.2, -0.2], 
+        [-0.2, 0.2, 0.2], [0.2, 0.2, 0.2], [0.2, 0.2, -0.2]]    
+ 
         def cube(vertexs, q, www):
             
             def edge(v1, v2, v3, v4, q, colour):
@@ -159,6 +223,7 @@ def draw():
                 glVertex3f(v4[0] + q[0], v4[1] + q[1], v4[2] + q[2])    
                 glNormal3f(1,1,1)       
                 glEnd()
+
             edge(vertexs[0], vertexs[4], vertexs[7], vertexs[3], q, www[0])
             edge(vertexs[0], vertexs[1], vertexs[5], vertexs[4], q, www[1])
             edge(vertexs[0], vertexs[3], vertexs[2], vertexs[1], q, www[2])
@@ -172,12 +237,9 @@ def draw():
                 for k in range(3):
                     cube(vertexs, [(i - 1)*0.45, (j - 1)*0.45, (k - 1)*0.45], colours[i][j][k])
 
-
-
         glPopMatrix()
 
         glutSwapBuffers()
-        
         
 
 def elemental(a, b):
@@ -212,17 +274,11 @@ class Cuube:
         pass
 
 
-
-
-
-
-
 glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
 glutInit(sys.argv)
-glutCreateWindow(b"Happy New Year!")
+glutCreateWindow(b"RUBIK'S CUBE!")
 
-#class cubik:
-        #glutWireCube(0.5)
+
 glEnable(GL_DEPTH_TEST)
 glutInitWindowSize(700, 700)
 glutInitWindowPosition(300, 300)
