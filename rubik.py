@@ -26,6 +26,7 @@ def init():
         global greencolor
         global treecolor
         global lightpos
+        global archiv
         xrot = 0.0
         yrot = 0.0
         colours = [ ]        
@@ -55,6 +56,7 @@ def init():
         for i in colours:
             for j in i:
                 j[2][3] = PINK      
+        archiv = colours        
         ambient = (0.0, 0.0, 0.0, 0.0)
         greencolor = (0.2, 0.8, 0.0, 0.8)
         treecolor = (1.0, 1.0, 1.0, 1.0)
@@ -80,84 +82,206 @@ def specialkeys(key, x, y):
                 xrot -=3.0
         if key == GLUT_KEY_DOWN:
                 xrot += 3.0
+      #  if key != GLUT_KEY_DOWN or key != GLUT_KEY_RIGHT or key != GLUT_KEY_UP or key != GLUT_KEY_DOWN:
+        #        return
         glutPostRedisplay()
 
 def keyboardkeys(key, x, y):     
         global colours
         global xrot
         global yrot
+        global archiv
+      #  print(key)
+    #    return 
 
         def x_rotate(i):
             for j in range(3):
                 der = colours[i][2][j][5]
-                des = colours[i][j][2][3]
+                des = colours[i][2 - j][2][3]
                 colours[i][2][j][5] = des
-                colours[i][j][2][3] = der
+                colours[i][2 - j][2][3] = der
+            for j in range(2):                
+                den = colours[i][2 - j][2][4]
+                dem = colours[i][2][j][4]
+                colours[i][2 - j][2][4] = dem 
+                colours[i][2][j][4] = den
+            for j in range(2):                
+                den = colours[i][2 - j][2][1]
+                dem = colours[i][2][j][1]
+                colours[i][2 - j][2][1] = dem 
+                colours[i][2][j][1] = den                
+                              
             for k in range(3):
-                der = colours[i][k][2][3]
-                des = colours[i][0][k][2]
-                colours[i][k][2][3] = des    
-                colours[i][0][k][2] = der
+                der = colours[i][2 - k][2][3]
+                des = colours[i][0][2 - k][2]
+                colours[i][2 - k][2][3] = des    
+                colours[i][0][2 - k][2] = der
+            for k in range(2):
+                den = colours[i][0][2 - k][4]
+                dem = colours[i][2 - k][2][4]
+                colours[i][0][2 - k][4] = dem
+                colours[i][2 - k][2][4] = den
+            for j in range(2):                
+                den = colours[i][0][2 - j][1]
+                dem = colours[i][2 - j][2][1]
+                colours[i][0][2 - j][1] = dem 
+                colours[i][2 - j][2][1] = den                                    
+                
             for l in range(3):
-                der = colours[i][0][l][2]
+                der = colours[i][0][2 - l][2]
                 des = colours[i][l][0][0]
-                colours[i][0][l][2] = des    
-                colours[i][l][0][0] = der  
+                colours[i][0][2 - l][2] = des    
+                colours[i][l][0][0] = der 
+            for l in range(2):
+                den = colours[i][l][0][4]
+                dem = colours[i][0][2 - l][4] 
+                colours[i][l][0][4] = dem
+                colours[i][0][2 - l][4] = den 
+            for j in range(2):                
+                den = colours[i][j][0][1]
+                dem = colours[i][0][2 - j][1]
+                colours[i][j][0][1] = dem 
+                colours[i][0][2 - j][1] = den                
+
+            archiv.append(colours)            
+
 
         def y_rotate(i):
             for j in range(3):
-                der = colours[j][i][2][3]
-                des = colours[2][i][j][4]
-                colours[j][i][2][3] = des
-                colours[2][i][j][4] = der  
+                der = colours[2 - j][i][2][3]
+                des = colours[2][i][2 - j][4]
+                colours[2 - j][i][2][3] = des
+                colours[2][i][2 - j][4] = der  
+            for j in range(2):
+                der = colours[2 - j][i][2][5]
+                des = colours[2][i][2 - j][5]
+                colours[2 - j][i][2][5] = des
+                colours[2][i][2 - j][5] = der 
+            for j in range(2):
+                der = colours[2 - j][i][2][2]
+                des = colours[2][i][2 - j][2]
+                colours[2 - j][i][2][2] = des
+                colours[2][i][2 - j][2] = der                
+
+
             for k in range(3):
-                der = colours[2][i][k][4]
+                der = colours[2][i][2 - k][4]
                 des = colours[k][i][0][0]
-                colours[2][i][k][4] = des
+                colours[2][i][2 - k][4] = des
                 colours[k][i][0][0] = der
+            for k in range(2):
+                der = colours[2][i][2 - k][5]
+                des = colours[k][i][0][5]
+                colours[2][i][2 - k][5] = des
+                colours[k][i][0][5] = der
+            for k in range(2):
+                der = colours[2][i][2 - k][2]
+                des = colours[k][i][0][2]
+                colours[2][i][2 - k][2] = des
+                colours[k][i][0][2] = der
+
             for l in range(3):
                 der = colours[l][i][0][0]
                 des = colours[0][i][l][1]
                 colours[l][i][0][0] = des
                 colours[0][i][l][1] = der 
+            for l in range(2):
+                der = colours[l][i][0][5]
+                des = colours[0][i][l][5]
+                colours[l][i][0][5] = des
+                colours[0][i][l][5] = der 
+            for l in range(2):
+                der = colours[l][i][0][2]
+                des = colours[0][i][l][2]
+                colours[l][i][0][2] = des
+                colours[0][i][l][2] = der 
+
+
+            archiv.append(colours)            
 
         def z_rotate(i):
             for j in range(3):
-                der = colours[0][j][i][1]
-                des = colours[j][2][i][5]
-                colours[0][j][i][1] = des
-                colours[j][2][i][5] = der  
+                der = colours[0][2 - j][i][1]
+                des = colours[2 - j][2][i][5]
+                colours[0][2 - j][i][1] = des
+                colours[2 - j][2][i][5] = der 
+            for j in range(2):
+                der = colours[0][2 - j][i][0]
+                des = colours[2 - j][2][i][0]
+                colours[0][2 - j][i][0] = des
+                colours[2 - j][2][i][0] = der
+            for j in range(2):
+                der = colours[0][2 - j][i][3]
+                des = colours[2 - j][2][i][3]
+                colours[0][2 - j][i][3] = des
+                colours[2 - j][2][i][3] = der
+
             for k in range(3):
-                der = colours[k][2][i][5]
+                der = colours[2 - k][2][i][5]
                 des = colours[2][k][i][4]
-                colours[k][2][i][5] = des
+                colours[2 - k][2][i][5] = des
                 colours[2][k][i][4] = der  
+            for k in range(2):
+                der = colours[2 - k][2][i][0]
+                des = colours[2][k][i][0]
+                colours[2 - k][2][i][0] = des
+                colours[2][k][i][0] = der
+            for k in range(2):
+                der = colours[2 - k][2][i][3]
+                des = colours[2][k][i][3]
+                colours[2 - k][2][i][3] = des
+                colours[2][k][i][3] = der                
+
             for l in range(3):
                 der = colours[2][l][i][4]
-                des = colours[l][0][i][2]
+                des = colours[2 - l][0][i][2]
                 colours[2][l][i][4] = des
-                colours[l][0][i][2] = der               
+                colours[2 - l][0][i][2] = der               
+            for l in range(2):
+                der = colours[2][l][i][0]
+                des = colours[2 - l][0][i][0]
+                colours[2][l][i][0] = des
+                colours[2 - l][0][i][0] = der
+            for l in range(2):
+                der = colours[2][l][i][3]
+                des = colours[2 - l][0][i][3]
+                colours[2][l][i][3] = des
+                colours[2 - l][0][i][3] = der                  
 
-        defname = input()      
-        if defname == 'xmiddle':
-            x_rotate(1)
+            archiv.append(colours)            
+
+      #  defname = 'nocommand'      
+        defname = input()
+       # if defname == 'xmiddle':
+        if key == b'x':
+            #if key == b'm':
+            x_rotate(1)         
         if defname == 'xleft':
             x_rotate(0)
         if defname == 'xright':
             x_rotate(2)
         if defname == 'yoben':
-            y_rotate(2)       
+            y_rotate(2)  
         if defname == 'yunter':
-            y_rotate(0)   
+            y_rotate(0)
         if defname == 'ymiddle':
-            y_rotate(1)   
+            y_rotate(1) 
         if defname == 'znear':
-            z_rotate(2)  
+            z_rotate(2) 
         if defname == 'zmiddle':
             z_rotate(1)
         if defname == 'zweit':
-            z_rotate(0)                
+            z_rotate(0) 
 
+        if defname == 'back':
+            coba = archiv.pop()
+            coba = archiv.pop() 
+            for i in range(3):
+                for j in range(3):
+                    for k in range(3):
+                        for l in range(6):
+                            colours[i][j][k][l] = coba[i][j][k][l]
+            
         glutPostRedisplay()
 
 def draw():
@@ -201,9 +325,7 @@ def draw():
         #glVertex3f(0.0, 10.0, 10.0)
         #glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, greencolor)
         #glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-          
-        R = Cuube()
-        r = []
+
 
         vertexs = [[-0.2, -0.2, -0.2], [-0.2, -0.2, 0.2], 
         [0.2, -0.2, 0.2], [0.2, -0.2, -0.2], [-0.2, 0.2, -0.2], 
@@ -236,6 +358,7 @@ def draw():
             for j in range(3):
                 for k in range(3):
                     cube(vertexs, [(i - 1)*0.45, (j - 1)*0.45, (k - 1)*0.45], colours[i][j][k])
+#плавный поворот в вершинах, движение по шару?, вершины в глобал        
 
         glPopMatrix()
 
@@ -272,8 +395,10 @@ class Cuube:
         pass
     def rotateBack(self, mode):
         pass
-
-
+#mills = 30
+#def Timer(a):
+#    glutPostRedisplay()
+#    glutTimerFunc(mills, a, 0)
 glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
 glutInit(sys.argv)
 glutCreateWindow(b"RUBIK'S CUBE!")
@@ -283,6 +408,7 @@ glEnable(GL_DEPTH_TEST)
 glutInitWindowSize(700, 700)
 glutInitWindowPosition(300, 300)
 glutDisplayFunc(draw)
+#glutTimerFunc(0, Timer, 0)
 glutSpecialFunc(specialkeys)
 glutKeyboardFunc(keyboardkeys)
 
