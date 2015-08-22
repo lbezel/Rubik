@@ -251,29 +251,28 @@ def keyboardkeys(key, x, y):
             archiv.append(colours)            
 
       #  defname = 'nocommand'      
-        defname = input()
+        #defname = input()
        # if defname == 'xmiddle':
-        if key == b'x':
-            #if key == b'm':
+        if key == b'd':
             x_rotate(1)         
-        if defname == 'xleft':
+        if key == b'x':
             x_rotate(0)
-        if defname == 'xright':
+        if key == 'r':
             x_rotate(2)
-        if defname == 'yoben':
+        if key == b'y':
             y_rotate(2)  
-        if defname == 'yunter':
+        if key == b'v':
             y_rotate(0)
-        if defname == 'ymiddle':
+        if key == b'g':
             y_rotate(1) 
-        if defname == 'znear':
+        if key == b'z':
             z_rotate(2) 
-        if defname == 'zmiddle':
+        if key == b's':
             z_rotate(1)
-        if defname == 'zweit':
+        if key == b'e':
             z_rotate(0) 
 
-        if defname == 'back':
+        if key == b'b':
             coba = archiv.pop()
             coba = archiv.pop() 
             for i in range(3):
