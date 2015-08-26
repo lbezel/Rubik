@@ -149,52 +149,53 @@ def keyboardkeys(key, x, y):
         def y_rotate(i):
             for j in range(3):
                 der = colours[2 - j][i][2][3]
-                des = colours[2][i][2 - j][4]
+                des = colours[2][i][j][4]
                 colours[2 - j][i][2][3] = des
-                colours[2][i][2 - j][4] = der  
+                colours[2][i][j][4] = der  
             for j in range(2):
                 der = colours[2 - j][i][2][5]
-                des = colours[2][i][2 - j][5]
+                des = colours[2][i][j][5]
                 colours[2 - j][i][2][5] = des
-                colours[2][i][2 - j][5] = der 
+                colours[2][i][j][5] = der 
             for j in range(2):
                 der = colours[2 - j][i][2][2]
-                des = colours[2][i][2 - j][2]
+                des = colours[2][i][j][2]
                 colours[2 - j][i][2][2] = des
-                colours[2][i][2 - j][2] = der                
+                colours[2][i][j][2] = der                
 
 
             for k in range(3):
-                der = colours[2][i][2 - k][4]
+                der = colours[2][i][k][4]
                 des = colours[k][i][0][0]
-                colours[2][i][2 - k][4] = des
+                colours[2][i][k][4] = des
                 colours[k][i][0][0] = der
+
             for k in range(2):
-                der = colours[2][i][2 - k][5]
+                der = colours[2][i][k][5]
                 des = colours[k][i][0][5]
-                colours[2][i][2 - k][5] = des
+                colours[2][i][k][5] = des
                 colours[k][i][0][5] = der
             for k in range(2):
-                der = colours[2][i][2 - k][2]
+                der = colours[2][i][k][2]
                 des = colours[k][i][0][2]
-                colours[2][i][2 - k][2] = des
+                colours[2][i][k][2] = des
                 colours[k][i][0][2] = der
 
             for l in range(3):
                 der = colours[l][i][0][0]
-                des = colours[0][i][l][1]
+                des = colours[0][i][2 - l][1]
                 colours[l][i][0][0] = des
-                colours[0][i][l][1] = der 
+                colours[0][i][2 - l][1] = der 
             for l in range(2):
                 der = colours[l][i][0][5]
-                des = colours[0][i][l][5]
+                des = colours[0][i][2 - l][5]
                 colours[l][i][0][5] = des
-                colours[0][i][l][5] = der 
+                colours[0][i][2 - l][5] = der 
             for l in range(2):
                 der = colours[l][i][0][2]
-                des = colours[0][i][l][2]
+                des = colours[0][i][2 - l][2]
                 colours[l][i][0][2] = des
-                colours[0][i][l][2] = der 
+                colours[0][i][2 - l][2] = der 
 
 
             archiv.append(colours)            
@@ -234,19 +235,19 @@ def keyboardkeys(key, x, y):
 
             for l in range(3):
                 der = colours[2][l][i][4]
-                des = colours[2 - l][0][i][2]
+                des = colours[l][0][i][2]
                 colours[2][l][i][4] = des
-                colours[2 - l][0][i][2] = der               
+                colours[l][0][i][2] = der               
             for l in range(2):
                 der = colours[2][l][i][0]
-                des = colours[2 - l][0][i][0]
+                des = colours[l][0][i][0]
                 colours[2][l][i][0] = des
-                colours[2 - l][0][i][0] = der
+                colours[l][0][i][0] = der
             for l in range(2):
                 der = colours[2][l][i][3]
-                des = colours[2 - l][0][i][3]
+                des = colours[l][0][i][3]
                 colours[2][l][i][3] = des
-                colours[2 - l][0][i][3] = der                  
+                colours[l][0][i][3] = der                  
 
             archiv.append(colours)            
 
@@ -257,7 +258,7 @@ def keyboardkeys(key, x, y):
             x_rotate(1)         
         if key == b'x':
             x_rotate(0)
-        if key == 'r':
+        if key == b'r':
             x_rotate(2)
         if key == b'y':
             y_rotate(2)  
