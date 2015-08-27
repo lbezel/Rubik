@@ -25,6 +25,7 @@ def init():
         global archiv
         xrot = 0.0
         yrot = 0.0
+        archiv = []
         colours = [ ]        
         for i in range(3):
             colours.append([])
@@ -52,10 +53,10 @@ def init():
         for i in colours:
             for j in i:
                 j[2][3] = PINK      
-               
+              
 
         glClearColor(0.5, 0.5, 0.5, 1.0)
-        gluOrtho2D(-1.5, 1.5, -1.5, 1.5)
+        gluOrtho2D(-1.0, 1.0, -1.0, 1.0)
         glRotatef(30, 1.0, 1.0, 0.0)
         glEnable(GL_CULL_FACE)
   
@@ -63,7 +64,7 @@ def specialkeys(key, x, y):
         global xrot
         global yrot
         if key == GLUT_KEY_LEFT:
-                xrot -=3.0
+                yrot -=3.0
         if key == GLUT_KEY_RIGHT:
                 yrot += 3.0
         if key == GLUT_KEY_UP:
@@ -78,9 +79,24 @@ def keyboardkeys(key, x, y):
         global xrot
         global yrot
         global archiv
-
-
+        coba = []
+        for i in range(3):
+            coba.append([])
+            for j in range(3):
+                coba[i].append([])
+                for k in range(3):
+                    coba[i][j].append([])
+                    for l in range(6):
+                        coba[i][j][k].append(BLACK)
+        if key in b'zsexdrvgyZSEXDRVGY':
+            for i in range(3):
+                for j in range(3):
+                    for k in range(3):
+                        for l in range(6):
+                            coba[i][j][k][l] = colours[i][j][k][l]
+            archiv.append(coba) 
         def x_rotate(i):
+
             for j in range(3):
                 der = colours[i][2][j][5]
                 des = colours[i][2 - j][2][3]
@@ -129,16 +145,12 @@ def keyboardkeys(key, x, y):
                 colours[i][j][0][1] = dem 
                 colours[i][0][2 - j][1] = den                
 
-            for i in range(3):
-                for j in range(3):
-                    for k in range(3):
-                        for l in range(6):
-                            coba[i][j][k][l] = colours[i][j][k][l]
 
-            archiv.append(colours)            
+           
 
 
         def y_rotate(i):
+
             for j in range(3):
                 der = colours[2 - j][i][2][3]
                 des = colours[2][i][j][4]
@@ -189,10 +201,10 @@ def keyboardkeys(key, x, y):
                 colours[l][i][0][2] = des
                 colours[0][i][2 - l][2] = der 
 
-
-            archiv.append(colours)            
+           
 
         def z_rotate(i):
+
             for j in range(3):
                 der = colours[0][2 - j][i][1]
                 des = colours[2 - j][2][i][5]
@@ -240,8 +252,7 @@ def keyboardkeys(key, x, y):
                 des = colours[l][0][i][3]
                 colours[2][l][i][3] = des
                 colours[l][0][i][3] = der                  
-
-            archiv.append(colours)            
+           
 
         if key == b'd':
             x_rotate(1)         
@@ -262,15 +273,41 @@ def keyboardkeys(key, x, y):
         if key == b'e':
             z_rotate(0) 
 
+        def triple_f(func, param):
+            func(param)
+            func(param)
+            func(param)
+        if key == b'D':
+            triple_f(x_rotate, 1)         
+        if key == b'X':
+            triple_f(x_rotate, 0)
+        if key == b'R':
+            triple_f(x_rotate, 2)
+        if key == b'Y':
+            triple_f(y_rotate, 2)  
+        if key == b'V':
+            triple_f(y_rotate, 0)
+        if key == b'G':
+            triple_f(y_rotate, 1) 
+        if key == b'Z':
+            triple_f(z_rotate, 2) 
+        if key == b'S':
+            triple_f(z_rotate, 1)
+        if key == b'E':
+            triple_f(z_rotate, 0) 
+
+
         if key == b'b':
-            coba = archiv.pop()
-            coba = archiv.pop() 
-            for i in range(3):
-                for j in range(3):
-                    for k in range(3):
-                        for l in range(6):
-                            colours[i][j][k][l] = coba[i][j][k][l]
-            
+            if not archiv:
+                print("start position")
+            else:
+                coba = archiv.pop() 
+                for i in range(3):
+                    for j in range(3):
+                        for k in range(3):
+                            for l in range(6):
+                                colours[i][j][k][l] = coba[i][j][k][l]
+         
         glutPostRedisplay()
 
 def draw():
@@ -283,9 +320,9 @@ def draw():
         glRotatef(xrot, 1.0, 0.0, 0.0)
         glRotatef(yrot, 0.0, 1.0, 0.0)  #!!!!!!!
 
-        vertexs = [[-0.2, -0.2, -0.2], [-0.2, -0.2, 0.2], 
-        [0.2, -0.2, 0.2], [0.2, -0.2, -0.2], [-0.2, 0.2, -0.2], 
-        [-0.2, 0.2, 0.2], [0.2, 0.2, 0.2], [0.2, 0.2, -0.2]]    
+        vertexs = [[-0.15, -0.15, -0.15], [-0.15, -0.15, 0.15], 
+        [0.15, -0.15, 0.15], [0.15, -0.15, -0.15], [-0.15, 0.15, -0.15], 
+        [-0.15, 0.15, 0.15], [0.15, 0.15, 0.15], [0.15, 0.15, -0.15]]    
  
         def cube(vertexs, q, www):
             
@@ -313,25 +350,13 @@ def draw():
         for i in range(3):
             for j in range(3):
                 for k in range(3):
-                    cube(vertexs, [(i - 1)*0.45, (j - 1)*0.45, (k - 1)*0.45], colours[i][j][k])
+                    cube(vertexs, [(i - 1)*0.35, (j - 1)*0.35, (k - 1)*0.35], colours[i][j][k])
 
         glPopMatrix()
 
         glutSwapBuffers()
         
-
-def elemental(a, b):
-        glBegin(GL_POLYGON)
-        glColor3b(a[0], a[1], a[2])
-        glVertex3f(b, b, b)   
-        glNormal3f(1,1,1)
-        glVertex3f(b, b + 0.5, b) 
-        glNormal3f(1,1,1)
-        glVertex3f(b + 0.5, b + 0.5, b) 
-        glNormal3f(1,1,1)
-        glVertex3f(b + 0.5, b, b)    
-        glNormal3f(1,1,1)       
-        glEnd()                 
+             
 
 
         
@@ -345,7 +370,7 @@ glutCreateWindow(b"RUBIK'S CUBE!")
 
 
 glEnable(GL_DEPTH_TEST)
-glutInitWindowSize(700, 700)
+glutInitWindowSize(900, 900)
 glutInitWindowPosition(300, 300)
 glutDisplayFunc(draw)
 #glutTimerFunc(0, Timer, 0)
