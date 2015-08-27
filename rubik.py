@@ -22,10 +22,6 @@ def init():
         global colours
         global xrot
         global yrot
-        global ambient
-        global greencolor
-        global treecolor
-        global lightpos
         global archiv
         xrot = 0.0
         yrot = 0.0
@@ -56,19 +52,11 @@ def init():
         for i in colours:
             for j in i:
                 j[2][3] = PINK      
-        archiv = colours        
-        ambient = (0.0, 0.0, 0.0, 0.0)
-        greencolor = (0.2, 0.8, 0.0, 0.8)
-        treecolor = (1.0, 1.0, 1.0, 1.0)
-        lightpos = (2000.0, 2000.0, 1.0)
+               
+
         glClearColor(0.5, 0.5, 0.5, 1.0)
-        gluOrtho2D(-1.0, 1.0, -1.0, 1.0)
+        gluOrtho2D(-1.5, 1.5, -1.5, 1.5)
         glRotatef(30, 1.0, 1.0, 0.0)
-        #glLightModelfv(GL_LIGHT_MODEL_DIFFUSE, diffuse)
-        #glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
-        #glEnable(GL_LIGHTING)
-        #glEnable(GL_LIGHT0)
-        #glLightfv(GL_LIGHT0, GL_POSITION, lightpos)
         glEnable(GL_CULL_FACE)
   
 def specialkeys(key, x, y):
@@ -82,8 +70,7 @@ def specialkeys(key, x, y):
                 xrot -=3.0
         if key == GLUT_KEY_DOWN:
                 xrot += 3.0
-      #  if key != GLUT_KEY_DOWN or key != GLUT_KEY_RIGHT or key != GLUT_KEY_UP or key != GLUT_KEY_DOWN:
-        #        return
+
         glutPostRedisplay()
 
 def keyboardkeys(key, x, y):     
@@ -91,8 +78,7 @@ def keyboardkeys(key, x, y):
         global xrot
         global yrot
         global archiv
-      #  print(key)
-    #    return 
+
 
         def x_rotate(i):
             for j in range(3):
@@ -142,6 +128,12 @@ def keyboardkeys(key, x, y):
                 dem = colours[i][0][2 - j][1]
                 colours[i][j][0][1] = dem 
                 colours[i][0][2 - j][1] = den                
+
+            for i in range(3):
+                for j in range(3):
+                    for k in range(3):
+                        for l in range(6):
+                            coba[i][j][k][l] = colours[i][j][k][l]
 
             archiv.append(colours)            
 
@@ -251,9 +243,6 @@ def keyboardkeys(key, x, y):
 
             archiv.append(colours)            
 
-      #  defname = 'nocommand'      
-        #defname = input()
-       # if defname == 'xmiddle':
         if key == b'd':
             x_rotate(1)         
         if key == b'x':
@@ -288,44 +277,11 @@ def draw():
         global colours
         global xrot
         global yrot
-        global lightpos
-        global greencolor
-        global treecolor
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glPushMatrix()
         glRotatef(xrot, 1.0, 0.0, 0.0)
         glRotatef(yrot, 0.0, 1.0, 0.0)  #!!!!!!!
-        #glLightfv(GL_LIGHT0, GL_POSITION, lightpos)
-
-        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, treecolor)
-        #glTranslatef(0.0, 0.0, -0.7)
-        #glutSolidCylinder(0.1, 0.2, 20, 20)
-        #glMaterialfv(GL_FRONT, GL_DIFFUSE, greencolor)
-        #glTranslatef(0.0, 0.0, 0.2)
-        #glutSolidCone(0.5, 0.5, 20, 20)
-        #glutSolidCube(0.5)
-        #glTranslatef(0.0, 0.0, 0.3)
-        #glutSolidCone(0.4, 0.4, 20, 20)
-        #glTranslatef(0.0, 0.0, 0.3)
-        #glutSolidCone(0.3, 0.3, 20, 20)
-
-  #      glBegin(GL_TRIANGLE_STRIP)
-    #    a = [50, 400, 5]
-  #      glColor3b(a[0], a[1], a[2]);
-     #   glNormal3f(1,1,1) 
-   #     glVertex3f(1.0, 0.0, 0.0);
-    #    glColor3b(100,2,30)
-    #    glNormal3f(1,1,1)
-     #   glVertex3f(0.0, 1.0, 0.0);
-  #      glColor3b(1,200,30)
- #       glNormal3f(1,1,1)
- #       glVertex3f(0.0, 0.0, 1.0);
-   #     glEnd()
-        #glColor3f(100,200,30)
-        #glVertex3f(0.0, 10.0, 10.0)
-        #glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, greencolor)
-        #glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
 
         vertexs = [[-0.2, -0.2, -0.2], [-0.2, -0.2, 0.2], 
         [0.2, -0.2, 0.2], [0.2, -0.2, -0.2], [-0.2, 0.2, -0.2], 
@@ -358,7 +314,6 @@ def draw():
             for j in range(3):
                 for k in range(3):
                     cube(vertexs, [(i - 1)*0.45, (j - 1)*0.45, (k - 1)*0.45], colours[i][j][k])
-#плавный поворот в вершинах, движение по шару?, вершины в глобал        
 
         glPopMatrix()
 
@@ -379,22 +334,7 @@ def elemental(a, b):
         glEnd()                 
 
 
-class Cuube:
-    def __init__(self):
-        pass
         
-    def rotateRight(self, mode):
-        pass
-    def rotateLeft(self, mode):
-        pass
-    def rotateFront(self, mode):
-        pass
-    def rotateTop(self, mode):
-        pass
-    def rotateBottom(self, mode):
-        pass
-    def rotateBack(self, mode):
-        pass
 #mills = 30
 #def Timer(a):
 #    glutPostRedisplay()
